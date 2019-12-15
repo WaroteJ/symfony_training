@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <h1 class="col-12 text-center">{{ name }}</h1>
+                <div class="col-12 mx-auto text-center">
+                    <input type="text" id="new-element" placeholder="Ecrire ici...">
+                    <span class="add-element">Ajouter</span>
+                </div>
+                <ul id="myList">
+                 {#   <li>
+                        <p>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet debitis consectetur vero,
+                            nobis fuga odit voluptatum omnis cumque incidunt aliquid?
+                            Itaque quia deserunt corrupti alias ducimus accusantium accusamus commodi corporis!
+                        </p>
+                        <div class ="arrows"><span class="arrowUp">↑</span><span class="arrowDown">↓</span></div>
+                        <span class="close">×</span>
+                    </li>#}
+                    {% for task in tasks %}
+                        <li>
+                            <p>
+                                task.content
+                            </p>
+                            <div class ="arrows"><span class="arrowUp">↑</span><span class="arrowDown">↓</span></div>
+                            <span class="close">×</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('toDoList') }}
+{% endblock %}

@@ -18,10 +18,10 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item {{ path('app_homepage') ? 'active'}}">
+                            <li class="nav-item {{ app.request.get('_route')=='app_homepage' ? 'active'}}">
                                 <a class="nav-link" href={{ path('app_homepage') }}>Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ app.request.get('_route')=='app_showLists' ? 'active'}}">
                                 <a class="nav-link" href="{{ path('app_showLists') }}">My lists</a>
                             </li>
 

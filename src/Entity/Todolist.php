@@ -24,7 +24,7 @@ class Todolist
     private $tasks;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="todolists")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="todolists")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_user;

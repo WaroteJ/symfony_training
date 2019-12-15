@@ -22,7 +22,7 @@ class Task
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\todolist", inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Todolist", inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_todolist;
