@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Todolist", mappedBy="id_user")
+     */
+    private $todolists;
+
+    public function __construct()
+    {
+        $this->todolists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,5 +118,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Todolist[]
+     */
+    public function getTodolists(): Collection
+    {
+        return $this->todolists;
+    }
+
+    public function addTodolist(Todolist $todolist): self
+    {
+        if (!$this->todolists->contains($todolist)) {
+            $this->todolists[] = $todolist;
+            $todolist->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodolist(Todolist $todolist): self
+    {
+        if ($this->todolists->contains($todolist)) {
+            $this->todolists->removeElement($todolist);
+            // set the owning side to null (unless already changed)
+            if ($todolist->getIdUser() === $this) {
+                $todolist->setIdUser(null);
+            }
+        }
+
+        return $this;
     }
 }
