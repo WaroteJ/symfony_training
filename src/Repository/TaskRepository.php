@@ -22,20 +22,26 @@ class TaskRepository extends ServiceEntityRepository
     // /**
     //  * @return Task[] Returns an array of Task objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findWhereNotDeleted($value)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('t.id_todolist = :value')
+            ->setParameter('value', $value)
+            ->andWhere('t.deleted = 0')
+            ->orderBy('t.ordre')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
+    public function findLast() {
+        $qb = $this->createQueryBuilder('tc');
+        $qb->setMaxResults( 1 );
+        $qb->orderBy('tc.id', 'DESC');
+
+        return $qb->getQuery()->getSingleResult();
+    }
     /*
     public function findOneBySomeField($value): ?Task
     {

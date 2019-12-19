@@ -1,0 +1,100 @@
+$black-border : 1px solid black;
+
+%no-pad-mar{
+  padding: 0;
+  margin : 0;
+}
+
+.IE{
+  @extend %no-pad-mar;
+  display: none;
+  z-index: 9999;
+  position: fixed;
+  width: 100%;
+  background-color: lightgoldenrodyellow;
+  border: $black-border;
+}
+
+.add-element {
+  border: $black-border;
+  border-radius: 3px;
+  padding: 2px;
+  margin-top: 10px;
+  background-color: whitesmoke;
+  &:hover{
+    background-color: lightgrey;
+    transition: 0.3s;
+}
+  &:active{
+    background-color: grey;
+}
+}
+
+#myList{
+  @extend %no-pad-mar;
+  width: 100%;
+  >li{
+      cursor: pointer;
+      position: relative;
+      padding: 15px 8px 15px 40px;
+      background: #eee;
+      font-size: 18px;
+      transition: 0.2s;
+      list-style: none;
+      border-bottom: $black-border;
+      display: flex;
+      align-items: stretch;
+
+      &:nth-child(odd){
+        background: #eae7dc;
+      }
+      >p{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+  }
+
+  >li.checked {
+    background-color: grey;
+
+    &:nth-child(odd){
+      background: #8e8d8a;
+  }
+    >p{
+      text-decoration: line-through;
+  }
+}
+}
+
+.arrows{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  >.arrowUp, >.arrowDown{
+    padding: 6px 12px;
+
+    &:hover{
+      background-color: darkgray;
+      color: white;
+      transition: 0.3s;
+  }
+}
+}
+
+.close {
+  text-align: center;
+  padding: 24px 20px;
+  height: 100%;
+
+  &:hover{
+    background-color: crimson;
+    transition: 0.3s;
+  }
+}
+
+.save-btn{
+  margin-top: 10px;
+  margin-left:5px;
+}

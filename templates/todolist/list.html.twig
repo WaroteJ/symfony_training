@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
     <main>
         <div class="container-fluid">
@@ -9,24 +10,18 @@
                     <span class="add-element">Ajouter</span>
                 </div>
                 <ul id="myList">
-                 {#   <li>
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet debitis consectetur vero,
-                            nobis fuga odit voluptatum omnis cumque incidunt aliquid?
-                            Itaque quia deserunt corrupti alias ducimus accusantium accusamus commodi corporis!
-                        </p>
-                        <div class ="arrows"><span class="arrowUp">↑</span><span class="arrowDown">↓</span></div>
-                        <span class="close">×</span>
-                    </li>#}
                     {% for task in tasks %}
-                        <li>
+                        <li class="{{ task.checked==true?'checked' }}">
+                            <input type="hidden" id="{{ task.id }}">
+                            <input type="hidden" id="{{ task.ordre }}">
                             <p>
-                                task.content
+                                {{ task.content }}
                             </p>
                             <div class ="arrows"><span class="arrowUp">↑</span><span class="arrowDown">↓</span></div>
                             <span class="close">×</span>
                         </li>
                     {% endfor %}
+
                 </ul>
             </div>
         </div>
@@ -35,4 +30,5 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('toDoList') }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 {% endblock %}

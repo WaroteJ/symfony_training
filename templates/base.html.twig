@@ -11,7 +11,7 @@
     <body>
         {% block header %}
             <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm ">
                     <a class="navbar-brand" href={{ path('app_homepage') }}>To-do-list</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
                             <li class="nav-item {{ app.request.get('_route')=='app_homepage' ? 'active'}}">
                                 <a class="nav-link" href={{ path('app_homepage') }}>Home</a>
                             </li>
-                            <li class="nav-item {{ app.request.get('_route')=='app_showLists' ? 'active'}}">
+                            <li class="nav-item {{ (app.request.get('_route')=='app_showLists') or ('app_toDoList' in app.request.get('_route')) ? 'active'}}">
                                 <a class="nav-link" href="{{ path('app_showLists') }}">My lists</a>
                             </li>
 

@@ -37,6 +37,11 @@ class Task
      */
     private $deleted;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ordre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Task
     public function setDeleted(bool $deleted): self
     {
         $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(int $ordre): self
+    {
+        $this->ordre = $ordre;
 
         return $this;
     }
