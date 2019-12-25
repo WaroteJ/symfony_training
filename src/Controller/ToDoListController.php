@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Todolist;
 use App\Entity\Task;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,34 @@ class ToDoListController extends AbstractController
             'lists'=>$lists,
         ]);
     }
+
+    /**
+     * @Route("/toDoList/ajaxAddList",name="_app_addList",methods={"POST"})
+     */
+    public function ajaxAddList(Request $request, UserInterface $user){
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $name=$request->request->get('name');
+
+        $list=new Todolist();
+
+        $userId=$this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneBy(['id'=>$user->getId()]);
+
+        $list->setIdUser($userId);
+        $list->setName($name);
+
+        $entityManager->persist($list);
+        $entityManager->flush();
+
+        $response=new Response(json_encode(array(
+            'id'=>$list->getId()
+        )));
+        $response->headers->set('Content-Type','application/json');
+        return $response;
+    }
+
     /**
      * @Route("/toDoList/{id}",name="app_toDoList")
      */
@@ -60,7 +89,7 @@ class ToDoListController extends AbstractController
     /**
      * @Route("/toDoList/{id}/ajaxP",name="_ajax_post",methods={"POST"})
      */
-    public function ajaxAdd($id, Request $request){
+    public function ajaxAddEvent($id, Request $request){
         $entityManager = $this->getDoctrine()->getManager();
 
         $text=$request->request->get('element');

@@ -7,10 +7,21 @@
         <div class="container-fluid">
             <div class="row">
                 <h1 class="col-12 text-center">Vos listes</h1>
+                <button class="col-4 mx-auto btn btn-info mb-2" id="newList">Créer une nouvelle liste</button>
+            </div>
+            <div class="row" id="List">
                 {% for list in lists %}
-                    <div class="col-lg-3 col-md-6 col-12 text-center"><a href={{ path('app_toDoList',{id:list.id}) }}>{{ list.name}}</a></div>
+                    <div class="col-lg-3 col-md-4 col-6 text-center mb-2">
+                        <a href={{ path('app_toDoList',{id:list.id}) }}>{{ list.name}}</a>
+                        <button class="btn btn-danger">×</button>
+                    </div>
                 {% endfor %}
             </div>
         </div>
     </main>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('showLists') }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 {% endblock %}
