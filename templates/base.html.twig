@@ -21,9 +21,11 @@
                             <li class="nav-item {{ app.request.get('_route')=='app_homepage' ? 'active'}}">
                                 <a class="nav-link" href={{ path('app_homepage') }}>Home</a>
                             </li>
+                            {% if app.user %}
                             <li class="nav-item {{ (app.request.get('_route')=='app_showLists') or ('app_toDoList' in app.request.get('_route')) ? 'active'}}">
                                 <a class="nav-link" href="{{ path('app_showLists') }}">My lists</a>
                             </li>
+                            {% endif %}
 
                         </ul>
                         <span class="nav-item dropdown">

@@ -87,9 +87,9 @@ $(function(){
                 let idUp2=$(".toMove :nth-child(1)").attr("id");
                 $(".moveUp :nth-child(2)").attr("id",newOrdreUp2);
                 $(".toMove :nth-child(2)").attr("id",newOrdreUp1);
-                console.log(newOrdreUp1,newOrdreUp2,idUp1,idUp2);
                 $("li").removeClass("toMove moveUp");
-                ajaxOrder(idUp1,idUp2,newOrdreUp1,newOrdreUp2);
+                if(idUp1 && idUp2 && newOrdreUp1 && newOrdreUp2)
+                    ajaxOrder(idUp1,idUp2,newOrdreUp1,newOrdreUp2);
                 break;
             case "arrowDown":                // click = down arrow => move down the <li>
                 item.parentNode.parentNode.classList.toggle("toMove");
@@ -102,7 +102,8 @@ $(function(){
                 $(".moveDown :nth-child(2)").attr("id",newOrdreDown2);
                 $(".toMove :nth-child(2)").attr("id",newOrdreDown1);
                 $("li").removeClass("toMove moveDown");
-                ajaxOrder(idDown1,idDown2,newOrdreDown1,newOrdreDown2);
+                if(idDown1 && idDown2 && newOrdreDown1 && newOrdreDown2)
+                    ajaxOrder(idDown1,idDown2,newOrdreDown1,newOrdreDown2);
                 break;
             default:
                 break;
