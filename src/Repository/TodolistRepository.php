@@ -18,11 +18,11 @@ class TodolistRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Todolist::class);
     }
-    public function findWhereNotDeleted($value)
+    public function findWhereNotDeleted($id)
     {
         return $this->createQueryBuilder('t')
-            ->where('t.id_user = :value')
-            ->setParameter('value', $value)
+            ->where('t.user = :id')
+            ->setParameter('id', $id)
             ->andWhere('t.deleted = 0')
             ->orderBy('t.id')
             ->getQuery()
@@ -33,7 +33,7 @@ class TodolistRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->where('t.id = :id')
             ->setParameter('id', $id)
-            ->andWhere('t.id_user=:id_user')
+            ->andWhere('t.user=:id_user')
             ->setParameter('id_user',$id_user)
             ->andWhere('t.deleted = 0')
             ->getQuery()

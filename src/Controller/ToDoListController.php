@@ -77,7 +77,7 @@ class ToDoListController extends AbstractController
 
         $id=$request->request->get('id');
         $list=$entityManager->getRepository(Todolist::class)->find($id);
-        if(($list->getUser()->getId())==($user->getId()))   {
+        if($list->getUser()->getId()==$user->getId()){
             $list->setDeleted(true);
             $entityManager->flush();
         }
@@ -141,37 +141,38 @@ class ToDoListController extends AbstractController
     /**
      * @Route("/toDoList/{id}/ajaxD",name="_ajax_del",methods={"PUT"})
      */
-    public function ajaxDel($id, Request $request){
+    public function ajaxDel($id, Request $request, UserInterface $user){
         $entityManager = $this->getDoctrine()->getManager();
 
         $id_task=$request->request->get('element');
         $task=$entityManager->getRepository(Task::class)->find($id_task);
-
-        $task->setDeleted(true);
-        $entityManager->flush();
+        if($task->getTodolist()->getUser()->getId()==$user->getId()) {
+            $task->setDeleted(true);
+            $entityManager->flush();
+        }
 
         return new Response();
     }
     /**
      * @Route("/toDoList/{id}/ajaxPutChecked",name="_ajax_check",methods={"PUT"})
      */
-    public function ajaxCheck($id, Request $request){
+    public function ajaxCheck($id, Request $request, UserInterface $user){
         $entityManager = $this->getDoctrine()->getManager();
 
         $id_task=$request->request->get('element');
         $state_task=$request->request->get('state');
         $task=$entityManager->getRepository(Task::class)->find($id_task);
-
-        $task->setChecked($state_task);
-        $entityManager->flush();
-
+        if($task->getTodolist()->getUser()->getId()==$user->getId()) {
+            $task->setChecked($state_task);
+            $entityManager->flush();
+        }
         return new Response();
     }
 
     /**
      * @Route("/toDoList/{id}/ajaxOrderUpdate",name="_ajax_orderUpdate",methods={"PUT"})
      */
-    public function ajaxOrder($id, Request $request){
+    public function ajaxOrder($id, Request $request, UserInterface $user){
         $entityManager = $this->getDoctrine()->getManager();
 
         $firstId=$request->request->get('firstId');
@@ -179,11 +180,13 @@ class ToDoListController extends AbstractController
         $firstOrder=$request->request->get('firstOrder');
         $secondOrder=$request->request->get('secondOrder');
         $task=$entityManager->getRepository(Task::class)->findOneBy(['id'=>$firstId]);
-        $task->setOrdre($secondOrder);
         $secondTask=$entityManager->getRepository(Task::class)->findOneBy(['id'=>$secondId]);
-        $secondTask->setOrdre($firstOrder);
-        $entityManager->flush();
-
+        if(($task->getTodolist()->getUser()->getId()==$user->getId())
+            && ($secondTask->getTodolist()->getUser()->getId()==$user->getId())) {
+                $task->setOrdre($secondOrder);
+                $secondTask->setOrdre($firstOrder);
+                $entityManager->flush();
+        }
         return new Response();
     }
 }

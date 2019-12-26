@@ -26,7 +26,7 @@ class TaskRepository extends ServiceEntityRepository
     public function findWhereNotDeleted($id)
     {
         return $this->createQueryBuilder('t')
-            ->where('t.id_todolist = :id')
+            ->where('t.todolist = :id')
             ->setParameter('id', $id)
             ->andWhere('t.deleted = 0')
             ->orderBy('t.ordre')
