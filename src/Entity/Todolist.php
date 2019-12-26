@@ -34,6 +34,11 @@ class Todolist
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted=0;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -95,6 +100,18 @@ class Todolist
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

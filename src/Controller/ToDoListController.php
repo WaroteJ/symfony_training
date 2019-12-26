@@ -27,7 +27,7 @@ class ToDoListController extends AbstractController
     public function showLists(UserInterface $user){
         $lists=$this->getDoctrine()
             ->getRepository(Todolist::class)
-            ->findBy(['id_user'=>$user->getId()]);
+            ->findWhereNotDeleted($user->getId());
 
 
      /*   if(!$lists){
@@ -67,6 +67,20 @@ class ToDoListController extends AbstractController
         return $response;
     }
 
+    /**
+     * @Route("/toDoList/ajaxRemoveList",name="_app_removeList",methods={"PUT"})
+     */
+    public function ajaxRemoveList(Request $request){
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $id=$request->request->get('id');
+        $list=$entityManager->getRepository(Todolist::class)->find($id);
+
+        $list->setDeleted(true);
+        $entityManager->flush();
+
+        return new Response();
+    }
     /**
      * @Route("/toDoList/{id}",name="app_toDoList")
      */
