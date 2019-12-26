@@ -21,6 +21,8 @@ class ToDoListController extends AbstractController
     public function homepage(){
         return $this->render("base.html.twig");
     }
+
+    // Lists display and ajax requests used on this pages
     /**
      * @Route("/toDoList",name="app_showLists")
      */
@@ -81,18 +83,23 @@ class ToDoListController extends AbstractController
 
         return new Response();
     }
+
+
+
+
+    // A list display and its ajax requests
     /**
      * @Route("/toDoList/{id}",name="app_toDoList")
      */
-    public function toDoList($id){
+    public function toDoList($id, UserInterface $user){
         $tasks=$this->getDoctrine()
             ->getRepository(task::class)
             ->findWhereNotDeleted($id);
         $list=$this->getDoctrine()
             ->getRepository(todolist::class)
-            ->findOneBy(['id'=>$id]);
+            ->findOneByIdAndUser($id,$user->getId());
         if(!$list){
-            throw  $this->createNotFoundException('Cette liste n\'existe pas');
+            throw  $this->createNotFoundException('Cette liste n\'existe pas ou ne vous appartient pas');
         }
         $name=$list->getName();
         return $this->render('todolist\list.html.twig',[

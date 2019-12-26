@@ -29,6 +29,17 @@ class TodolistRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function findOneByIdAndUser($id,$id_user){
+        return $this->createQueryBuilder('t')
+            ->where('t.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('t.id_user=:id_user')
+            ->setParameter('id_user',$id_user)
+            ->andWhere('t.deleted = 0')
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
     // /**
     //  * @return Todolist[] Returns an array of Todolist objects
     //  */
