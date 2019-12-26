@@ -56,7 +56,7 @@ class ToDoListController extends AbstractController
             ->getRepository(User::class)
             ->findOneBy(['id'=>$user->getId()]);
 
-        $list->setIdUser($userId);
+        $list->setUser($userId);
         $list->setName($name);
 
         $entityManager->persist($list);
@@ -72,14 +72,15 @@ class ToDoListController extends AbstractController
     /**
      * @Route("/toDoList/ajaxRemoveList",name="_app_removeList",methods={"PUT"})
      */
-    public function ajaxRemoveList(Request $request){
+    public function ajaxRemoveList(Request $request,UserInterface $user){
         $entityManager = $this->getDoctrine()->getManager();
 
         $id=$request->request->get('id');
         $list=$entityManager->getRepository(Todolist::class)->find($id);
-
-        $list->setDeleted(true);
-        $entityManager->flush();
+        if(($list->getUser()->getId())==($user->getId()))   {
+            $list->setDeleted(true);
+            $entityManager->flush();
+        }
 
         return new Response();
     }
@@ -127,7 +128,7 @@ class ToDoListController extends AbstractController
         $task->setChecked(false);
         $task->setDeleted(false);
         $task->setOrdre($id->getId()+1);
-        $task->setIdTodolist($todolist);
+        $task->setTodolist($todolist);
         $entityManager->persist($task);
         $entityManager->flush();
 
