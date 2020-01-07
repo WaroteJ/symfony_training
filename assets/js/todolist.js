@@ -18,19 +18,18 @@ $(function(){
             let spanAD="<span class=\"arrowDown\">\u2193</span></div>";                 //span ArrowDown + div closing
             let spanC="<span class=\"close\">\u00D7</span>"                             //span Close
 
-
             $.ajax({
                 url:uri+'/ajaxP',
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'element':value
+                    'text':value
                 },
                 async: true,
                 success: function (data)
                 {
-                    console.log(data.id)
-                    $("ul#myList").append("<li><input type='hidden' id='"+data.id+"'><input type='hidden' id='"+data.id+"'><p>"+value+"</p>"+spanAU+spanAD+spanC+"</li>");//Append our new element to the list
+                    console.log(data.response)
+                    $("ul#myList").append("<li><input type='hidden' id='"+data.taskId+"'><input type='hidden' id='"+data.taskId+"'><p>"+value+"</p>"+spanAU+spanAD+spanC+"</li>");//Append our new element to the list
                 }
             });
         }
@@ -67,12 +66,12 @@ $(function(){
                     type: "PUT",
                     dataType: "json",
                     data: {
-                        'element':id
+                        'taskId':id
                     },
                     async: true,
                     success: function (data)
                     {
-                        console.log(data)
+                        console.log(data.response)
 
                     }
                 });
@@ -123,13 +122,13 @@ $(function(){
             type: "PUT",
             dataType: "json",
             data: {
-                'element':id,
-                'state':state
+                'taskId':id,
+                'taskState':state
             },
             async: true,
             success: function (data)
             {
-                console.log(data)
+                console.log(data.response)
 
             }
         });
@@ -141,15 +140,15 @@ $(function(){
             type: "PUT",
             dataType: "json",
             data: {
-                'firstId':firstId,
-                'secondId':secondId,
-                'firstOrder':firstOrder,
-                'secondOrder':secondOrder
+                'firstTaskId':firstId,
+                'secondTaskId':secondId,
+                'firstTaskOrder':firstOrder,
+                'secondTaskOrder':secondOrder
             },
             async: true,
             success: function (data)
             {
-                console.log(data)
+                console.log(data.response)
 
             }
         });

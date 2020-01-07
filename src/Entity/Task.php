@@ -30,17 +30,17 @@ class Task
     /**
      * @ORM\Column(type="boolean")
      */
-    private $checked;
+    private $checked=0;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $deleted;
+    private $deleted=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $ordre;
+    private $ordre=0;
 
     public function getId(): ?int
     {
