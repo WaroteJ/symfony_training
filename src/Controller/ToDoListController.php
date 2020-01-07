@@ -205,7 +205,7 @@ class ToDoListController extends AbstractController
     /**
      * @Route("/toDoList/{id}/ajaxOrderUpdate",name="_ajax_orderUpdate",methods={"PUT"})
      */
-    public function ajaxOrder($id, Request $request, UserInterface $user){
+    public function OrderTask($id, Request $request, UserInterface $user){
         try{
             $entityManager = $this->getDoctrine()->getManager();
             $firstTaskId=$request->request->get('firstTaskId');
