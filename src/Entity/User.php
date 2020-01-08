@@ -47,6 +47,10 @@ class User implements UserInterface
         $this->todolists = new ArrayCollection();
     }
 
+    public function __toString() {
+        return (string) $this->username;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

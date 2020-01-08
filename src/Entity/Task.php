@@ -42,6 +42,10 @@ class Task
      */
     private $ordre=0;
 
+    public function __toString() {
+        return (string) $this->content;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

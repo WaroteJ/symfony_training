@@ -4,6 +4,10 @@ easy_admin:
 #        # List the entity class name you want to manage
         User:
             class: App\Entity\User
+            label: 'Users'
+            list:
+                title: '%%entity_label%% listing'
+
         Todolist:
             class: App\Entity\Todolist
         Task:
