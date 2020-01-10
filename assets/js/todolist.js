@@ -28,7 +28,6 @@ $(function(){
                 async: true,
                 success: function (data)
                 {
-                    console.log(data.response)
                     $("ul#myList").append("<li><input type='hidden' id='"+data.taskId+"'><input type='hidden' id='"+data.taskId+"'><p>"+value+"</p>"+spanAU+spanAD+spanC+"</li>");//Append our new element to the list
                 }
             });
@@ -71,7 +70,6 @@ $(function(){
                     async: true,
                     success: function (data)
                     {
-                        console.log(data.response)
 
                     }
                 });
@@ -128,7 +126,6 @@ $(function(){
             async: true,
             success: function (data)
             {
-                console.log(data.response)
 
             }
         });
@@ -148,7 +145,6 @@ $(function(){
             async: true,
             success: function (data)
             {
-                console.log(data.response)
 
             }
         });

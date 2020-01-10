@@ -13,7 +13,6 @@ $(function () {
                 async: true,
                 success: function (data)
                 {
-                    console.log(data.response)
                     $('#List').append("<li class=\"col-lg-3 col-md-4 col-6 text-center mb-2\"><input type='hidden' id='"+data.listId+"'><div class=\"row\"><a class=\"col-10\" href='" + uri + "/" + data.listId + "'>" + listName + "</a><button class=\"col-2 btn btn-danger del\">×</button></div></li>");
                 }
             });
@@ -36,7 +35,7 @@ $(function () {
                 async: true,
                 success: function (data)
                 {
-                    console.log(data.response)
+
                 }
             })
             item.parentNode.parentNode.remove();
