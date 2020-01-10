@@ -23,13 +23,13 @@ class TaskRepository extends ServiceEntityRepository
     //  * @return Task[] Returns an array of Task objects
     //  */
 
-    public function findWhereNotDeleted($value)
+    public function findTasks($user_id)
     {
         return $this->createQueryBuilder('t')
-            ->where('t.id_todolist = :value')
-            ->setParameter('value', $value)
+            ->where('t.todolist = :todolist_id')
             ->andWhere('t.deleted = 0')
             ->orderBy('t.ordre')
+            ->setParameter('todolist_id', $user_id)
             ->getQuery()
             ->getResult()
         ;

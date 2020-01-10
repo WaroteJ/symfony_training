@@ -25,22 +25,26 @@ class Task
      * @ORM\ManyToOne(targetEntity="App\Entity\Todolist", inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $id_todolist;
+    private $todolist;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $checked;
+    private $checked=0;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $deleted;
+    private $deleted=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $ordre;
+    private $ordre=0;
+
+    public function __toString() {
+        return (string) $this->content;
+    }
 
     public function getId(): ?int
     {
@@ -59,14 +63,14 @@ class Task
         return $this;
     }
 
-    public function getIdTodolist(): ?todolist
+    public function getTodolist(): ?todolist
     {
-        return $this->id_todolist;
+        return $this->todolist;
     }
 
-    public function setIdTodolist(?todolist $id_todolist): self
+    public function setTodolist(?todolist $todolist): self
     {
-        $this->id_todolist = $id_todolist;
+        $this->todolist = $todolist;
 
         return $this;
     }

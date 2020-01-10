@@ -38,13 +38,17 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Todolist", mappedBy="id_user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Todolist", mappedBy="user")
      */
     private $todolists;
 
     public function __construct()
     {
         $this->todolists = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return (string) $this->username;
     }
 
     public function getId(): ?int
@@ -132,7 +136,7 @@ class User implements UserInterface
     {
         if (!$this->todolists->contains($todolist)) {
             $this->todolists[] = $todolist;
-            $todolist->setIdUser($this);
+            $todolist->setUser($this);
         }
 
         return $this;
@@ -143,8 +147,8 @@ class User implements UserInterface
         if ($this->todolists->contains($todolist)) {
             $this->todolists->removeElement($todolist);
             // set the owning side to null (unless already changed)
-            if ($todolist->getIdUser() === $this) {
-                $todolist->setIdUser(null);
+            if ($todolist->getUser() === $this) {
+                $todolist->setUser(null);
             }
         }
 

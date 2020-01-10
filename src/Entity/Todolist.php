@@ -19,7 +19,7 @@ class Todolist
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="id_todolist")
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="todolist")
      */
     private $tasks;
 
@@ -27,16 +27,24 @@ class Todolist
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="todolists")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $id_user;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted=0;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+    }
+    public function __toString() {
+        return (string) $this->name;
     }
 
     public function getId(): ?int
@@ -56,7 +64,7 @@ class Todolist
     {
         if (!$this->tasks->contains($task)) {
             $this->tasks[] = $task;
-            $task->setIdTodolist($this);
+            $task->setTodolist($this);
         }
 
         return $this;
@@ -67,22 +75,22 @@ class Todolist
         if ($this->tasks->contains($task)) {
             $this->tasks->removeElement($task);
             // set the owning side to null (unless already changed)
-            if ($task->getIdTodolist() === $this) {
-                $task->setIdTodolist(null);
+            if ($task->getTodolist() === $this) {
+                $task->setTodolist(null);
             }
         }
 
         return $this;
     }
 
-    public function getIdUser(): ?user
+    public function getUser(): ?user
     {
-        return $this->id_user;
+        return $this->user;
     }
 
-    public function setIdUser(?user $id_user): self
+    public function setUser(?user $user): self
     {
-        $this->id_user = $id_user;
+        $this->user = $user;
 
         return $this;
     }
@@ -95,6 +103,18 @@ class Todolist
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

@@ -18,7 +18,27 @@ class TodolistRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Todolist::class);
     }
-
+    public function findLists($user_id){
+        return $this->createQueryBuilder('t')
+            ->where('t.user = :user_id')
+            ->andWhere('t.deleted = 0')
+            ->orderBy('t.id')
+            ->setParameter('user_id', $user_id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findCurrentList($list_id,$user_id){
+        return $this->createQueryBuilder('t')
+            ->where('t.id = :list_id')
+            ->andWhere('t.user=:user_id')
+            ->andWhere('t.deleted = 0')
+            ->setParameters(['list_id'=>$list_id,
+                             'user_id'=>$user_id])
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
     // /**
     //  * @return Todolist[] Returns an array of Todolist objects
     //  */
