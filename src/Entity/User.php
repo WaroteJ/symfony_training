@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -41,6 +42,23 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Todolist", mappedBy="user")
      */
     private $todolists;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message="The email '{{ value }}' is not valid email."
+     * )
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     * @Assert\Regex(
+     *     pattern="/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/",
+     *     message="The phone number is invalid"
+     * )
+     */
+    private $phone;
 
     public function __construct()
     {
@@ -151,6 +169,30 @@ class User implements UserInterface
                 $todolist->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

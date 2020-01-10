@@ -34,6 +34,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdownMenuLink">
                                 {% if app.user %}
+                                    <a class="dropdown-item" href="{{ path('app_profil') }}">Mon profil</a>
                                     <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
                                 {% else %}
                                     <a class="dropdown-item" href={{ path('app_login') }}>Se connecter</a>

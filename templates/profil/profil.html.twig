@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col-4 text-center shadow">
+                    {{ user.username }}
+                </div>
+                <div class="col-6">
+                    {{ form_start(userForm) }}
+                        {{ form_row(userForm.email) }}
+                        {{ form_row(userForm.phone) }}
+                        <button class="btn btn-info" type="submit">Modifier!</button>
+                    {{ form_end(userForm) }}
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    {% endblock %}
