@@ -1,3 +1,4 @@
+import('../css/showLists.scss');
 $(function () {
     let uri=window.location.href;
     $('#newList').click(function () {

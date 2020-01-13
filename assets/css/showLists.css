@@ -1,0 +1,10 @@
+li:hover {
+  transition: 0.3s;
+  background-color: whitesmoke;
+  border-radius: 3px;
+}
+li a {
+  padding: 7px;
+}
+
+/*# sourceMappingURL=showLists.css.map */
