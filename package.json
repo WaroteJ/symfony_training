@@ -3,7 +3,7 @@
     "@symfony/webpack-encore": "^0.28.2",
     "core-js": "^3.5.0",
     "encore": "^0.0.30-beta",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
